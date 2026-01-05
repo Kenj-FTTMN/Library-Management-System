@@ -6,12 +6,29 @@
 
 // Load configuration
 require_once 'config/config.php';
+require_once 'config/auth.php';
+
+// Handle login/logout pages separately (they don't need header/footer)
+if (isset($_GET['page']) && ($_GET['page'] === 'login' || $_GET['page'] === 'logout')) {
+    if ($_GET['page'] === 'login') {
+        include 'pages/login.php';
+    } elseif ($_GET['page'] === 'logout') {
+        include 'pages/logout.php';
+    }
+    exit();
+}
 
 // Get page parameter or default to 'home'
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Sanitize page parameter
 $page = preg_replace('/[^a-z0-9\-]/', '', strtolower($page));
+
+// Require login for all pages except login
+if ($page !== 'login' && !isLoggedIn()) {
+    header('Location: index.php?page=login');
+    exit();
+}
 
 // Get page configuration
 $current_page = ($page === 'home') ? 'index' : $page;
@@ -52,41 +69,48 @@ include 'includes/header.php';
         if (isset($_GET['page'])) {
           $page = $_GET['page'];
           switch($page) {
-            case 'about':
-              include 'pages/about.php';
+            // Library Management Pages
+            case 'books':
+              include 'pages/books.php';
+              break;
+            case 'authors':
+              include 'pages/authors.php';
+              break;
+            case 'categories':
+              include 'pages/categories.php';
+              break;
+            case 'users':
+              include 'pages/users.php';
+              break;
+            case 'borrow':
+              include 'pages/borrow.php';
+              break;
+            case 'returns':
+              include 'pages/returns.php';
+              break;
+            case 'fines':
+              include 'pages/fines.php';
+              break;
+            case 'departments':
+              include 'pages/departments.php';
+              break;
+            case 'roles':
+              include 'pages/roles.php';
+              break;
+            case 'admin-dashboard':
+              include 'pages/admin-dashboard.php';
+              break;
+            case 'faculty-dashboard':
+              include 'pages/faculty-dashboard.php';
+              break;
+            case 'student-dashboard':
+              include 'pages/student-dashboard.php';
+              break;
+            case 'unauthorized':
+              include 'pages/unauthorized.php';
               break;
             case 'contact':
               include 'pages/contact.php';
-              break;
-            case 'academics':
-              include 'pages/academics.php';
-              break;
-            case 'admissions':
-              include 'pages/admissions.php';
-              break;
-            case 'alumni':
-              include 'pages/alumni.php';
-              break;
-            case 'events':
-              include 'pages/events.php';
-              break;
-            case 'news':
-              include 'pages/news.php';
-              break;
-            case 'students-life':
-              include 'pages/students-life.php';
-              break;
-            case 'faculty-staff':
-              include 'pages/faculty-staff.php';
-              break;
-            case 'campus-facilities':
-              include 'pages/campus-facilities.php';
-              break;
-            case 'event-details':
-              include 'pages/event-details.php';
-              break;
-            case 'news-details':
-              include 'pages/news-details.php';
               break;
             case 'privacy':
               include 'pages/privacy.php';
@@ -97,9 +121,6 @@ include 'includes/header.php';
             case '404':
             case 'error':
               include 'pages/404.php';
-              break;
-            case 'starter-page':
-              include 'pages/starter-page.php';
               break;
             default:
               // If page not found, show 404

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title><?php echo isset($page_title) ? $page_title : SITE_NAME . ' - College Bootstrap Template'; ?></title>
+  <title><?php echo isset($page_title) ? $page_title : SITE_NAME; ?></title>
   <meta name="description" content="<?php echo isset($page_description) ? $page_description : ''; ?>">
   <meta name="keywords" content="">
 
@@ -26,6 +26,9 @@
 
   <!-- Main CSS File -->
   <link href="<?php echo ASSETS_PATH; ?>/css/main.css" rel="stylesheet">
+  
+  <!-- Library Management System CSS -->
+  <link href="<?php echo ASSETS_PATH; ?>/css/library.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: College

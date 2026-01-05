@@ -5,9 +5,9 @@
  */
 
 // Site Information
-define('SITE_NAME', 'College');
-define('SITE_URL', 'http://localhost/College');
-define('SITE_EMAIL', 'info@example.com');
+define('SITE_NAME', 'Library Management System');
+define('SITE_URL', 'http://localhost/Library-Management-System');
+define('SITE_EMAIL', 'info@library.com');
 define('SITE_PHONE', '+1 5589 55488 55');
 define('SITE_ADDRESS', 'A108 Adam Street, New York, NY 535022');
 
@@ -16,80 +16,108 @@ define('BASE_PATH', dirname(__DIR__));
 define('INCLUDES_PATH', BASE_PATH . '/includes');
 define('ASSETS_PATH', 'assets');
 
+// Include database connection
+require_once __DIR__ . '/database.php';
+
+// Include auth functions if available (for navigation menu)
+if (file_exists(__DIR__ . '/auth.php')) {
+    require_once __DIR__ . '/auth.php';
+}
+
 // Page titles and descriptions
 $page_config = [
     'index' => [
-        'title' => 'Home - College Bootstrap Template',
-        'description' => 'Inspiring Excellence Through Education',
+        'title' => 'Home - Library Management System',
+        'description' => 'Manage your library efficiently',
         'body_class' => 'index-page'
     ],
-    'about' => [
-        'title' => 'About - College Bootstrap Template',
-        'description' => 'Learn about our college',
-        'body_class' => 'about-page'
+    'books' => [
+        'title' => 'Books Management - Library Management System',
+        'description' => 'Manage library books',
+        'body_class' => 'books-page'
+    ],
+    'authors' => [
+        'title' => 'Authors Management - Library Management System',
+        'description' => 'Manage authors',
+        'body_class' => 'authors-page'
+    ],
+    'categories' => [
+        'title' => 'Categories Management - Library Management System',
+        'description' => 'Manage book categories',
+        'body_class' => 'categories-page'
+    ],
+    'users' => [
+        'title' => 'Users Management - Library Management System',
+        'description' => 'Manage library users',
+        'body_class' => 'users-page'
+    ],
+    'borrow' => [
+        'title' => 'Borrow Records - Library Management System',
+        'description' => 'Manage book borrowings',
+        'body_class' => 'borrow-page'
+    ],
+    'returns' => [
+        'title' => 'Returns Management - Library Management System',
+        'description' => 'Manage book returns',
+        'body_class' => 'returns-page'
+    ],
+    'fines' => [
+        'title' => 'Fines Management - Library Management System',
+        'description' => 'Manage fines',
+        'body_class' => 'fines-page'
+    ],
+    'departments' => [
+        'title' => 'Departments Management - Library Management System',
+        'description' => 'Manage departments',
+        'body_class' => 'departments-page'
+    ],
+    'roles' => [
+        'title' => 'Roles Management - Library Management System',
+        'description' => 'Manage user roles',
+        'body_class' => 'roles-page'
+    ],
+    'login' => [
+        'title' => 'Login - Library Management System',
+        'description' => 'Login to your account',
+        'body_class' => 'login-page'
+    ],
+    'logout' => [
+        'title' => 'Logout - Library Management System',
+        'description' => 'Logout from system',
+        'body_class' => 'logout-page'
+    ],
+    'unauthorized' => [
+        'title' => 'Access Denied - Library Management System',
+        'description' => 'You do not have permission',
+        'body_class' => 'unauthorized-page'
+    ],
+    'admin-dashboard' => [
+        'title' => 'Admin Dashboard - Library Management System',
+        'description' => 'Administrative dashboard',
+        'body_class' => 'admin-dashboard-page'
+    ],
+    'faculty-dashboard' => [
+        'title' => 'Faculty Dashboard - Library Management System',
+        'description' => 'Faculty dashboard',
+        'body_class' => 'faculty-dashboard-page'
+    ],
+    'student-dashboard' => [
+        'title' => 'Student Dashboard - Library Management System',
+        'description' => 'Student dashboard',
+        'body_class' => 'student-dashboard-page'
     ],
     'contact' => [
-        'title' => 'Contact - College Bootstrap Template',
+        'title' => 'Contact - Library Management System',
         'description' => 'Get in touch with us',
         'body_class' => 'contact-page'
     ],
-    'academics' => [
-        'title' => 'Academics - College Bootstrap Template',
-        'description' => 'Our academic programs',
-        'body_class' => 'academics-page'
-    ],
-    'admissions' => [
-        'title' => 'Admissions - College Bootstrap Template',
-        'description' => 'Admission information',
-        'body_class' => 'admissions-page'
-    ],
-    'alumni' => [
-        'title' => 'Alumni - College Bootstrap Template',
-        'description' => 'Alumni network',
-        'body_class' => 'alumni-page'
-    ],
-    'campus-facilities' => [
-        'title' => 'Campus & Facilities - College Bootstrap Template',
-        'description' => 'Our campus facilities',
-        'body_class' => 'campus-facilities-page'
-    ],
-    'events' => [
-        'title' => 'Events - College Bootstrap Template',
-        'description' => 'Upcoming events',
-        'body_class' => 'events-page'
-    ],
-    'event-details' => [
-        'title' => 'Event Details - College Bootstrap Template',
-        'description' => 'Event information',
-        'body_class' => 'event-details-page'
-    ],
-    'faculty-staff' => [
-        'title' => 'Faculty & Staff - College Bootstrap Template',
-        'description' => 'Meet our faculty and staff',
-        'body_class' => 'faculty-staff-page'
-    ],
-    'news' => [
-        'title' => 'News - College Bootstrap Template',
-        'description' => 'Latest news and updates',
-        'body_class' => 'news-page'
-    ],
-    'news-details' => [
-        'title' => 'News Details - College Bootstrap Template',
-        'description' => 'News article details',
-        'body_class' => 'news-details-page'
-    ],
     'privacy' => [
-        'title' => 'Privacy Policy - College Bootstrap Template',
+        'title' => 'Privacy Policy - Library Management System',
         'description' => 'Privacy policy',
         'body_class' => 'privacy-page'
     ],
-    'students-life' => [
-        'title' => 'Students Life - College Bootstrap Template',
-        'description' => 'Student life at our college',
-        'body_class' => 'students-life-page'
-    ],
     'terms-of-service' => [
-        'title' => 'Terms of Service - College Bootstrap Template',
+        'title' => 'Terms of Service - Library Management System',
         'description' => 'Terms of service',
         'body_class' => 'terms-of-service-page'
     ],
@@ -97,11 +125,6 @@ $page_config = [
         'title' => '404 - Page Not Found',
         'description' => 'Page not found',
         'body_class' => 'error-404-page'
-    ],
-    'starter-page' => [
-        'title' => 'Starter Page - College Bootstrap Template',
-        'description' => 'Starter page',
-        'body_class' => 'starter-page'
     ]
 ];
 
@@ -109,7 +132,7 @@ $page_config = [
 function get_page_config($page) {
     global $page_config;
     return isset($page_config[$page]) ? $page_config[$page] : [
-        'title' => SITE_NAME . ' - College Bootstrap Template',
+        'title' => SITE_NAME,
         'description' => '',
         'body_class' => ''
     ];
@@ -123,7 +146,7 @@ function get_current_page() {
     return 'index'; // Default to home
 }
 
-// Navigation menu structure
+// Navigation menu structure - role-based
 $nav_menu = [
     [
         'title' => 'Home',
@@ -132,54 +155,34 @@ $nav_menu = [
         'active' => false
     ],
     [
-        'title' => 'About',
-        'url' => 'index.php?page=about',
-        'page' => 'about',
+        'title' => 'Books',
+        'url' => 'index.php?page=books',
+        'page' => 'books',
+        'active' => false
+    ],
+    [
+        'title' => 'Management',
+        'url' => '#',
+        'page' => '',
         'active' => false,
+        'require_admin' => true, // Only admins can see this
         'dropdown' => [
-            ['title' => 'About Us', 'url' => 'index.php?page=about', 'page' => 'about'],
-            ['title' => 'Admissions', 'url' => 'index.php?page=admissions', 'page' => 'admissions'],
-            ['title' => 'Academics', 'url' => 'index.php?page=academics', 'page' => 'academics'],
-            ['title' => 'Faculty & Staff', 'url' => 'index.php?page=faculty-staff', 'page' => 'faculty-staff'],
-            ['title' => 'Campus & Facilities', 'url' => 'index.php?page=campus-facilities', 'page' => 'campus-facilities']
+            ['title' => 'Authors', 'url' => 'index.php?page=authors', 'page' => 'authors', 'require_admin' => true],
+            ['title' => 'Categories', 'url' => 'index.php?page=categories', 'page' => 'categories', 'require_admin' => true],
+            ['title' => 'Users', 'url' => 'index.php?page=users', 'page' => 'users', 'require_admin' => true],
+            ['title' => 'Departments', 'url' => 'index.php?page=departments', 'page' => 'departments', 'require_admin' => true],
+            ['title' => 'Roles', 'url' => 'index.php?page=roles', 'page' => 'roles', 'require_admin' => true]
         ]
     ],
     [
-        'title' => 'Students Life',
-        'url' => 'index.php?page=students-life',
-        'page' => 'students-life',
-        'active' => false
-    ],
-    [
-        'title' => 'News',
-        'url' => 'index.php?page=news',
-        'page' => 'news',
-        'active' => false
-    ],
-    [
-        'title' => 'Events',
-        'url' => 'index.php?page=events',
-        'page' => 'events',
-        'active' => false
-    ],
-    [
-        'title' => 'Alumni',
-        'url' => 'index.php?page=alumni',
-        'page' => 'alumni',
-        'active' => false
-    ],
-    [
-        'title' => 'More Pages',
+        'title' => 'Transactions',
         'url' => '#',
         'page' => '',
         'active' => false,
         'dropdown' => [
-            ['title' => 'News Details', 'url' => 'index.php?page=news-details', 'page' => 'news-details'],
-            ['title' => 'Event Details', 'url' => 'index.php?page=event-details', 'page' => 'event-details'],
-            ['title' => 'Privacy', 'url' => 'index.php?page=privacy', 'page' => 'privacy'],
-            ['title' => 'Terms of Service', 'url' => 'index.php?page=terms-of-service', 'page' => 'terms-of-service'],
-            ['title' => 'Error 404', 'url' => 'index.php?page=404', 'page' => '404'],
-            ['title' => 'Starter Page', 'url' => 'index.php?page=starter-page', 'page' => 'starter-page']
+            ['title' => 'Borrow Records', 'url' => 'index.php?page=borrow', 'page' => 'borrow'],
+            ['title' => 'Returns', 'url' => 'index.php?page=returns', 'page' => 'returns'],
+            ['title' => 'Fines', 'url' => 'index.php?page=fines', 'page' => 'fines']
         ]
     ],
     [

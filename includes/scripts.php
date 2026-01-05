@@ -11,6 +11,9 @@
 <!-- Main JS File -->
 <script src="<?php echo ASSETS_PATH; ?>/js/main.js"></script>
 
+<!-- Library Management System JS -->
+<script src="<?php echo ASSETS_PATH; ?>/js/library.js"></script>
+
 </body>
 
 </html>

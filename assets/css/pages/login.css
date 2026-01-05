@@ -1,0 +1,84 @@
+/**
+ * Login Page Styles
+ * Styles specific to the login page
+ */
+
+.login-page body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  max-width: 450px;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.login-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.login-header i {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.login-body {
+  padding: 40px;
+}
+
+.login-page .form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 12px;
+  font-weight: 600;
+  transition: transform 0.2s;
+  color: white;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  color: white;
+}
+
+.role-info {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.role-info h6 {
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+.role-info ul {
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.role-info li {
+  margin-bottom: 8px;
+  color: #6c757d;
+}
+
