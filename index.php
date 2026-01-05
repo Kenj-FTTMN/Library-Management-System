@@ -100,6 +100,9 @@ include 'includes/header.php';
             case 'admin-dashboard':
               include 'pages/admin-dashboard.php';
               break;
+            case 'librarian-dashboard':
+              include 'pages/librarian-dashboard.php';
+              break;
             case 'faculty-dashboard':
               include 'pages/faculty-dashboard.php';
               break;

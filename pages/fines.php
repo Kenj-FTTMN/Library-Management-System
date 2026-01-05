@@ -7,6 +7,7 @@ requireLogin();
 $conn = getDBConnection();
 $message = '';
 $message_type = '';
+$canManageFines = canManageFines();
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

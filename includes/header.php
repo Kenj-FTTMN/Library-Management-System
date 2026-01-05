@@ -32,6 +32,8 @@ $user_data = isLoggedIn() ? getUserData() : [];
         $role = getCurrentRole();
         if ($role === 'admin') {
             $home_url = 'index.php?page=admin-dashboard';
+        } elseif ($role === 'librarian') {
+            $home_url = 'index.php?page=librarian-dashboard';
         } elseif ($role === 'faculty') {
             $home_url = 'index.php?page=faculty-dashboard';
         } elseif ($role === 'student') {
@@ -56,7 +58,7 @@ $user_data = isLoggedIn() ? getUserData() : [];
                 $show_item = hasRole($item['require_role']);
             }
             if (isset($item['require_admin']) && $item['require_admin']) {
-                $show_item = isAdmin();
+                $show_item = isAdmin() || isLibrarian();
             }
             
             // Update home URL for role-specific dashboard
@@ -65,6 +67,8 @@ $user_data = isLoggedIn() ? getUserData() : [];
                 $role = getCurrentRole();
                 if ($role === 'admin') {
                     $item_url = 'index.php?page=admin-dashboard';
+                } elseif ($role === 'librarian') {
+                    $item_url = 'index.php?page=librarian-dashboard';
                 } elseif ($role === 'faculty') {
                     $item_url = 'index.php?page=faculty-dashboard';
                 } elseif ($role === 'student') {
@@ -89,7 +93,7 @@ $user_data = isLoggedIn() ? getUserData() : [];
                           $show_subitem = hasRole($subitem['require_role']);
                       }
                       if (isset($subitem['require_admin']) && $subitem['require_admin']) {
-                          $show_subitem = isAdmin();
+                          $show_subitem = isAdmin() || isLibrarian();
                       }
                       ?>
                       <?php if ($show_subitem): ?>

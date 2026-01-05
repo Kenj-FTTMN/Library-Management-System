@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $role = ROLE_ADMIN;
             } elseif (strpos($role_name, 'faculty') !== false || $role_name === 'faculty') {
                 $role = ROLE_FACULTY;
+            } elseif (strpos($role_name, 'librarian') !== false || $role_name === 'librarian') {
+                $role = ROLE_LIBRARIAN;
             } else {
                 $role = ROLE_STUDENT;
             }
@@ -60,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: index.php?page=admin-dashboard');
             } elseif ($role === ROLE_FACULTY) {
                 header('Location: index.php?page=faculty-dashboard');
+            } elseif ($role === ROLE_LIBRARIAN) {
+                header('Location: index.php?page=librarian-dashboard');
             } else {
                 header('Location: index.php?page=student-dashboard');
             }
@@ -185,10 +189,11 @@ include __DIR__ . '/../includes/head.php';
                     <h6><i class="bi bi-info-circle"></i> Available Roles:</h6>
                     <ul>
                         <li><strong>Admin:</strong> Full system access</li>
+                        <li><strong>Librarian:</strong> Manage books, categories, users, process borrows/returns, handle fines, generate reports</li>
                         <li><strong>Faculty:</strong> Borrow books, view history</li>
                         <li><strong>Student:</strong> Borrow books, view history</li>
                     </ul>
-                    <small class="text-muted">Note: Use existing user credentials or create users through the admin panel.</small>
+                    <small class="text-muted">Note: Use existing user credentials or create users through the admin/librarian panel.</small>
                 </div>
             </div>
         </div>

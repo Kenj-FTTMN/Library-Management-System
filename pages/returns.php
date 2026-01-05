@@ -8,6 +8,8 @@ $conn = getDBConnection();
 $message = '';
 $message_type = '';
 $isAdmin = isAdmin();
+$isLibrarian = isLibrarian();
+$canProcessBorrows = canProcessBorrows();
 $current_user_id = getCurrentUserId();
 
 // Handle pre-filled return from borrow page
@@ -80,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get returns - students/faculty see only their own, admins see all
-if ($isAdmin) {
+// Get returns - students/faculty see only their own, admin/librarian see all
+if ($canProcessBorrows) {
     $returns_query = "SELECT r.*, br.user_id, br.book_id, u.first_name, u.last_name, b.title as book_title 
                     FROM returns r 
                     LEFT JOIN borrow_records br ON r.borrow_id = br.borrow_id 
@@ -104,8 +106,8 @@ if ($isAdmin) {
     $stmt->close();
 }
 
-// Get borrow records for dropdown - students/faculty see only their pending borrows
-if ($isAdmin) {
+// Get borrow records for dropdown - students/faculty see only their pending borrows, admin/librarian see all
+if ($canProcessBorrows) {
     $borrow_query = "SELECT br.*, u.first_name, u.last_name, b.title as book_title 
                      FROM borrow_records br 
                      LEFT JOIN users u ON br.user_id = u.user_id 
@@ -121,7 +123,7 @@ if ($isAdmin) {
                      ORDER BY br.borrow_id DESC";
 }
 
-if ($isAdmin) {
+if ($canProcessBorrows) {
     $borrow_result = $conn->query($borrow_query);
 } else {
     $stmt = $conn->prepare($borrow_query);
@@ -165,7 +167,7 @@ while ($row = $borrow_result->fetch_assoc()) {
                                     <?php foreach ($borrows as $borrow): ?>
                                         <option value="<?php echo $borrow['borrow_id']; ?>" <?php echo ($prefill_borrow_id == $borrow['borrow_id']) ? 'selected' : ''; ?>>
                                             ID: <?php echo $borrow['borrow_id']; ?> - 
-                                            <?php if ($isAdmin): ?>
+                                            <?php if ($canProcessBorrows): ?>
                                                 <?php echo htmlspecialchars(($borrow['first_name'] ?? '') . ' ' . ($borrow['last_name'] ?? '')); ?> - 
                                             <?php endif; ?>
                                             <?php echo htmlspecialchars($borrow['book_title'] ?? 'N/A'); ?>
@@ -222,7 +224,7 @@ while ($row = $borrow_result->fetch_assoc()) {
                                             <td><?php echo $return['return_date'] ? date('Y-m-d', strtotime($return['return_date'])) : 'N/A'; ?></td>
                                             <td><span class="badge bg-<?php echo $return['bookcondition'] === 'Good' ? 'success' : 'danger'; ?>"><?php echo htmlspecialchars($return['bookcondition']); ?></span></td>
                                             <td>
-                                                <?php if ($isAdmin): ?>
+                                                <?php if ($canProcessBorrows): ?>
                                                     <button type="button" class="btn btn-sm btn-warning" onclick="editReturn(<?php echo htmlspecialchars(json_encode($return)); ?>)">Edit</button>
                                                     <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this return record?');">
                                                         <input type="hidden" name="action" value="delete">

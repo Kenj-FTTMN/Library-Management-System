@@ -8,6 +8,8 @@ $conn = getDBConnection();
 $message = '';
 $message_type = '';
 $isAdmin = isAdmin();
+$isLibrarian = isLibrarian();
+$canManageBooks = canManageBooks();
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -101,8 +103,8 @@ while ($row = $categories_result->fetch_assoc()) {
                 </div>
             <?php endif; ?>
             
-            <!-- Add Book Form - Admin Only -->
-            <?php if ($isAdmin): ?>
+            <!-- Add Book Form - Admin and Librarian Only -->
+            <?php if ($canManageBooks): ?>
             <div class="card mb-4">
                 <div class="card-header">
                     <h4>Add New Book</h4>
@@ -184,7 +186,7 @@ while ($row = $categories_result->fetch_assoc()) {
                                             <td><?php echo $book['quantity']; ?></td>
                                             <td><?php echo $book['created_at'] ? date('Y-m-d H:i', strtotime($book['created_at'])) : 'N/A'; ?></td>
                                             <td>
-                                                <?php if ($isAdmin): ?>
+                                                <?php if ($canManageBooks): ?>
                                                     <button type="button" class="btn btn-sm btn-warning" onclick="editBook(<?php echo htmlspecialchars(json_encode($book)); ?>)">Edit</button>
                                                     <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this book?');">
                                                         <input type="hidden" name="action" value="delete">

@@ -8,14 +8,16 @@ $conn = getDBConnection();
 $message = '';
 $message_type = '';
 $isAdmin = isAdmin();
+$isLibrarian = isLibrarian();
+$canProcessBorrows = canProcessBorrows();
 $current_user_id = getCurrentUserId();
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'add') {
-            // Students and faculty can only borrow for themselves
-            $user_id = $isAdmin ? $_POST['user_id'] : $current_user_id;
+            // Students and faculty can only borrow for themselves, admin/librarian can borrow for any user
+            $user_id = $canProcessBorrows ? $_POST['user_id'] : $current_user_id;
             $book_id = $_POST['book_id'];
             $borrow_date = $_POST['borrow_date'] ?: date('Y-m-d');
             $due_date = $_POST['due_date'];
@@ -68,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get borrow records - students/faculty see only their own, admins see all
-if ($isAdmin) {
+// Get borrow records - students/faculty see only their own, admin/librarian see all
+if ($canProcessBorrows) {
     $borrow_query = "SELECT br.*, u.first_name, u.last_name, b.title as book_title 
                     FROM borrow_records br 
                     LEFT JOIN users u ON br.user_id = u.user_id 
@@ -129,7 +131,7 @@ while ($row = $books_result->fetch_assoc()) {
                     <form method="POST" action="">
                         <input type="hidden" name="action" value="add">
                         <div class="row">
-                            <?php if ($isAdmin): ?>
+                            <?php if ($canProcessBorrows): ?>
                             <div class="col-md-6 mb-3">
                                 <label for="user_id" class="form-label">User *</label>
                                 <select class="form-select" id="user_id" name="user_id" required>
@@ -162,7 +164,7 @@ while ($row = $books_result->fetch_assoc()) {
                                 <input type="date" class="form-control" id="due_date" name="due_date" value="<?php echo date('Y-m-d', strtotime('+14 days')); ?>" required>
                             </div>
                         </div>
-                        <?php if ($isAdmin): ?>
+                                                <?php if ($canProcessBorrows): ?>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="status" class="form-label">Status *</label>
@@ -210,7 +212,7 @@ while ($row = $books_result->fetch_assoc()) {
                                             <td><?php echo $borrow['due_date'] ? date('Y-m-d', strtotime($borrow['due_date'])) : 'N/A'; ?></td>
                                             <td><span class="badge bg-<?php echo $borrow['status'] === 'Returned' ? 'success' : 'warning'; ?>"><?php echo htmlspecialchars($borrow['status']); ?></span></td>
                                             <td>
-                                                <?php if ($isAdmin): ?>
+                                                <?php if ($canProcessBorrows): ?>
                                                     <button type="button" class="btn btn-sm btn-warning" onclick="editBorrow(<?php echo htmlspecialchars(json_encode($borrow)); ?>)">Edit</button>
                                                     <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this borrow record?');">
                                                         <input type="hidden" name="action" value="delete">

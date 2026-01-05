@@ -10,6 +10,7 @@ session_start();
 define('ROLE_ADMIN', 'admin');
 define('ROLE_FACULTY', 'faculty');
 define('ROLE_STUDENT', 'student');
+define('ROLE_LIBRARIAN', 'librarian');
 
 /**
  * Check if user is logged in
@@ -61,6 +62,13 @@ function isStudent() {
 }
 
 /**
+ * Check if user has librarian role
+ */
+function isLibrarian() {
+    return hasRole(ROLE_LIBRARIAN);
+}
+
+/**
  * Require login - redirect to login if not logged in
  */
 function requireLogin() {
@@ -89,17 +97,70 @@ function requireAdmin() {
 }
 
 /**
- * Check if user can access management pages (admin only)
+ * Require librarian access
  */
-function canManage() {
-    return isAdmin();
+function requireLibrarian() {
+    requireRole(ROLE_LIBRARIAN);
 }
 
 /**
- * Check if user can borrow books (student and faculty)
+ * Require admin or librarian access
+ */
+function requireAdminOrLibrarian() {
+    requireLogin();
+    if (!isAdmin() && !isLibrarian()) {
+        header('Location: index.php?page=unauthorized');
+        exit();
+    }
+}
+
+/**
+ * Check if user can access management pages (admin and librarian)
+ */
+function canManage() {
+    return isAdmin() || isLibrarian();
+}
+
+/**
+ * Check if user can borrow books (student and faculty only)
  */
 function canBorrow() {
-    return isStudent() || isFaculty() || isAdmin();
+    return isStudent() || isFaculty();
+}
+
+/**
+ * Check if user can manage books (admin and librarian)
+ */
+function canManageBooks() {
+    return isAdmin() || isLibrarian();
+}
+
+/**
+ * Check if user can manage categories (admin and librarian)
+ */
+function canManageCategories() {
+    return isAdmin() || isLibrarian();
+}
+
+/**
+ * Check if user can manage users (admin and librarian)
+ */
+function canManageUsers() {
+    return isAdmin() || isLibrarian();
+}
+
+/**
+ * Check if user can process borrows/returns (admin and librarian)
+ */
+function canProcessBorrows() {
+    return isAdmin() || isLibrarian();
+}
+
+/**
+ * Check if user can manage fines (admin and librarian)
+ */
+function canManageFines() {
+    return isAdmin() || isLibrarian();
 }
 
 /**
