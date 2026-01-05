@@ -14,7 +14,19 @@ define('SITE_ADDRESS', 'A108 Adam Street, New York, NY 535022');
 // Paths
 define('BASE_PATH', dirname(__DIR__));
 define('INCLUDES_PATH', BASE_PATH . '/includes');
-define('ASSETS_PATH', 'assets');
+
+// Determine assets path dynamically from SITE_URL
+// Fallback to relative path if SITE_URL parsing fails
+$parsed_url = parse_url(SITE_URL);
+if ($parsed_url && isset($parsed_url['path'])) {
+    $base_path = rtrim($parsed_url['path'], '/');
+    define('ASSETS_PATH', $base_path . '/assets');
+} else {
+    // Fallback: use relative path from document root
+    $script_dir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+    $base_path = ($script_dir === '/' || $script_dir === '\\') ? '' : $script_dir;
+    define('ASSETS_PATH', rtrim($base_path, '/') . '/assets');
+}
 
 // Include database connection
 require_once __DIR__ . '/database.php';

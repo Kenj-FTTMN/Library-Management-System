@@ -80,7 +80,63 @@ $page_description = 'Login to your account';
 $page_body_class = 'login-page';
 include __DIR__ . '/../includes/head.php';
 ?>
-<body class="login-page">
+    <style>
+        /* Inline CSS for Login Page - Fix opacity, text colors, and gradient gap */
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            min-height: 100vh !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
+        
+        body.login-page {
+            margin: 0 !important;
+            padding: 20px !important;
+            min-height: 100vh !important;
+            background: transparent !important;
+        }
+        
+        body.login-page .login-card {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        body.login-page .login-header h2 {
+            color: #ffffff !important;
+        }
+        
+        body.login-page .login-header p {
+            color: #ffffff !important;
+        }
+        
+        body.login-page .login-body {
+            color: #212529 !important;
+        }
+        
+        body.login-page .login-body .form-label {
+            color: #495057 !important;
+        }
+        
+        body.login-page .login-body .role-info h6 {
+            color: #667eea !important;
+        }
+        
+        body.login-page .login-body .role-info li {
+            color: #6c757d !important;
+        }
+        
+        body.login-page .login-body .role-info small {
+            color: #6c757d !important;
+        }
+        
+        body.login-page .login-body .alert {
+            color: inherit !important;
+        }
+    </style>
     <div class="login-container">
         <div class="login-card" data-aos="fade-up">
             <div class="login-header">
@@ -103,7 +159,7 @@ include __DIR__ . '/../includes/head.php';
                     </div>
                 <?php endif; ?>
                 
-                <form method="POST" action="">
+                <form method="POST" action="index.php?page=login">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
                         <div class="input-group">
@@ -139,6 +195,4 @@ include __DIR__ . '/../includes/head.php';
     </div>
     
     <?php include __DIR__ . '/../includes/scripts.php'; ?>
-</body>
-</html>
 

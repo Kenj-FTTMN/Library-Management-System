@@ -9,8 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="<?php echo ASSETS_PATH; ?>/img/favicon.png" rel="icon">
-  <link href="<?php echo ASSETS_PATH; ?>/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="<?php echo ASSETS_PATH; ?>/images/icons/favicon.png" rel="icon">
+  <link href="<?php echo ASSETS_PATH; ?>/images/icons/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">

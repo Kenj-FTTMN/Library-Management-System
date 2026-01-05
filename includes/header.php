@@ -41,7 +41,7 @@ $user_data = isLoggedIn() ? getUserData() : [];
     ?>
     <a href="<?php echo $home_url; ?>" class="logo d-flex align-items-center me-auto">
       <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="<?php echo ASSETS_PATH; ?>/img/logo.webp" alt=""> -->
+      <!-- <img src="<?php echo ASSETS_PATH; ?>/images/logos/logo.webp" alt=""> -->
       <h1 class="sitename"><?php echo SITE_NAME; ?></h1>
     </a>
 
