@@ -140,6 +140,18 @@ include __DIR__ . '/../includes/head.php';
         body.login-page .login-body .alert {
             color: inherit !important;
         }
+
+        /* Ensure inputs are clickable: allow pointer events through container */
+        .login-container {
+            position: relative;
+            pointer-events: none;
+        }
+        .login-card,
+        .login-card * {
+            pointer-events: auto;
+            position: relative;
+            z-index: 2;
+        }
     </style>
     <div class="login-container">
         <div class="login-card" data-aos="fade-up">
@@ -168,7 +180,7 @@ include __DIR__ . '/../includes/head.php';
                         <label for="email" class="form-label">Email Address</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required autofocus>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required autofocus autocomplete="email">
                         </div>
                     </div>
                     
@@ -176,7 +188,7 @@ include __DIR__ . '/../includes/head.php';
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
                         </div>
                     </div>
                     

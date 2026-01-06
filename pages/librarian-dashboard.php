@@ -108,8 +108,7 @@ $user_data = getUserData();
               <i class="bi bi-book-fill" style="font-size: 3rem; color: #0d6efd;"></i>
             </div>
             <h3 class="card-title counter" data-target="<?php echo $stats['books']; ?>">0</h3>
-            <p class="card-text">Total Books</p>
-            <a href="index.php?page=books" class="btn btn-primary">Manage Books</a>
+            <p class="card-text mb-0">Total Books</p>
           </div>
         </div>
       </div>
@@ -122,8 +121,7 @@ $user_data = getUserData();
               <i class="bi bi-tags-fill" style="font-size: 3rem; color: #6f42c1;"></i>
             </div>
             <h3 class="card-title counter" data-target="<?php echo $stats['categories']; ?>">0</h3>
-            <p class="card-text">Categories</p>
-            <a href="index.php?page=categories" class="btn btn-primary">Manage Categories</a>
+            <p class="card-text mb-0">Categories</p>
           </div>
         </div>
       </div>
@@ -136,8 +134,7 @@ $user_data = getUserData();
               <i class="bi bi-people-fill" style="font-size: 3rem; color: #198754;"></i>
             </div>
             <h3 class="card-title counter" data-target="<?php echo $stats['users']; ?>">0</h3>
-            <p class="card-text">Total Users</p>
-            <a href="index.php?page=users" class="btn btn-success">Manage Users</a>
+            <p class="card-text mb-0">Total Users</p>
           </div>
         </div>
       </div>
@@ -218,21 +215,6 @@ $user_data = getUserData();
       <div class="col-12">
         <h3 class="mb-4" data-aos="fade-up">Quick Actions</h3>
         <div class="row gy-3">
-          <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-            <a href="index.php?page=books" class="btn btn-outline-primary w-100">
-              <i class="bi bi-plus-circle"></i> Add New Book
-            </a>
-          </div>
-          <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-            <a href="index.php?page=categories" class="btn btn-outline-primary w-100">
-              <i class="bi bi-tag"></i> Manage Categories
-            </a>
-          </div>
-          <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-            <a href="index.php?page=users" class="btn btn-outline-success w-100">
-              <i class="bi bi-person-plus"></i> Add New User
-            </a>
-          </div>
           <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
             <a href="index.php?page=borrow" class="btn btn-outline-info w-100">
               <i class="bi bi-journal-plus"></i> Process Borrow

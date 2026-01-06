@@ -132,35 +132,35 @@ function canBorrow() {
  * Check if user can manage books (admin and librarian)
  */
 function canManageBooks() {
-    return isAdmin() || isLibrarian();
+    return isAdmin(); // librarians no longer manage books
 }
 
 /**
  * Check if user can manage categories (admin and librarian)
  */
 function canManageCategories() {
-    return isAdmin() || isLibrarian();
+    return isAdmin(); // librarians no longer manage categories
 }
 
 /**
  * Check if user can manage users (admin and librarian)
  */
 function canManageUsers() {
-    return isAdmin() || isLibrarian();
+    return isAdmin(); // librarians no longer manage users
 }
 
 /**
  * Check if user can process borrows/returns (admin and librarian)
  */
 function canProcessBorrows() {
-    return isAdmin() || isLibrarian();
+    return isAdmin(); // restrict processing borrows to admin
 }
 
 /**
  * Check if user can manage fines (admin and librarian)
  */
 function canManageFines() {
-    return isAdmin() || isLibrarian();
+    return isAdmin(); // restrict fines management to admin
 }
 
 /**

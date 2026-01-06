@@ -58,7 +58,7 @@ $user_data = isLoggedIn() ? getUserData() : [];
                 $show_item = hasRole($item['require_role']);
             }
             if (isset($item['require_admin']) && $item['require_admin']) {
-                $show_item = isAdmin() || isLibrarian();
+                $show_item = isAdmin(); // librarians no longer see admin-only items
             }
             
             // Update home URL for role-specific dashboard

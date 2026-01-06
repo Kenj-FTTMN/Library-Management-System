@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/auth.php';
 
-requireAdminOrLibrarian();
+requireAdmin(); // librarians no longer allowed in management
 
 $conn = getDBConnection();
 $message = '';
