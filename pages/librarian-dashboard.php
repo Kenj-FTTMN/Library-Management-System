@@ -237,7 +237,7 @@ $user_data = getUserData();
     <!-- Reports & Analytics Section -->
     <div class="row mt-5">
       <div class="col-12">
-        <h3 class="mb-4" data-aos="fade-up">Reports & Analytics</h3>
+        <h3 class="mb-4" data-aos="fade-up">Reports &amp; Analytics</h3>
       </div>
       
       <!-- Most Borrowed Books -->
@@ -308,22 +308,38 @@ $user_data = getUserData();
         </div>
       </div>
 
-      <!-- Late Returns Statistics -->
+      <!-- Late Returns Statistics & Export -->
       <div class="col-lg-12 mt-4" data-aos="fade-up" data-aos-delay="300">
         <div class="card">
-          <div class="card-header bg-danger text-white">
-            <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Late Returns Statistics</h5>
+          <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Late Returns &amp; Exports</h5>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <h4 class="text-danger"><?php echo $late_returns; ?></h4>
-                <p class="text-muted">Total Late Returns</p>
+            <div class="row gy-3 align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-danger mb-1"><?php echo $late_returns; ?></h4>
+                <p class="text-muted mb-0">Total Late Returns</p>
               </div>
-              <div class="col-md-6">
-                <a href="index.php?page=borrow" class="btn btn-danger">
+              <div class="col-md-4">
+                <a href="index.php?page=borrow" class="btn btn-danger w-100">
                   <i class="bi bi-eye"></i> View Late Returns Details
                 </a>
+              </div>
+              <div class="col-md-4">
+                <div class="d-grid gap-2">
+                  <a href="index.php?page=export&amp;type=books" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Books
+                  </a>
+                  <a href="index.php?page=export&amp;type=borrows" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Borrow Records
+                  </a>
+                  <a href="index.php?page=export&amp;type=returns" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Returns
+                  </a>
+                  <a href="index.php?page=export&amp;type=fines" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Fines
+                  </a>
+                </div>
               </div>
             </div>
           </div>

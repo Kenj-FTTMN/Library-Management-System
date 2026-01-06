@@ -121,6 +121,9 @@ include 'includes/header.php';
             case 'terms-of-service':
               include 'pages/terms-of-service.php';
               break;
+            case 'export':
+              include 'pages/export.php';
+              break;
             case '404':
             case 'error':
               include 'pages/404.php';

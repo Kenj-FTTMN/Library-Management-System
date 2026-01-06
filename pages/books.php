@@ -76,15 +76,15 @@ $books_query = "SELECT b.*, a.author_name, c.category_name
                 ORDER BY b.book_id DESC";
 $books_result = $conn->query($books_query);
 
-// Get authors for dropdown
-$authors_result = $conn->query("SELECT * FROM author ORDER BY author_name");
+// Get authors for dropdown (using DISTINCT to avoid duplicates)
+$authors_result = $conn->query("SELECT DISTINCT author_id, author_name FROM author ORDER BY author_name");
 $authors = [];
 while ($row = $authors_result->fetch_assoc()) {
     $authors[] = $row;
 }
 
-// Get categories for dropdown
-$categories_result = $conn->query("SELECT * FROM categories ORDER BY category_name");
+// Get categories for dropdown (using DISTINCT to avoid duplicates)
+$categories_result = $conn->query("SELECT DISTINCT category_id, category_name FROM categories ORDER BY category_name");
 $categories = [];
 while ($row = $categories_result->fetch_assoc()) {
     $categories[] = $row;

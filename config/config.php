@@ -133,6 +133,11 @@ $page_config = [
         'description' => 'Terms of service',
         'body_class' => 'terms-of-service-page'
     ],
+    'export' => [
+        'title' => 'Export Data - Library Management System',
+        'description' => 'Export library data as CSV',
+        'body_class' => 'export-page'
+    ],
     '404' => [
         'title' => '404 - Page Not Found',
         'description' => 'Page not found',

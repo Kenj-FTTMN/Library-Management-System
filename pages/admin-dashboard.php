@@ -151,6 +151,101 @@ $user_data = getUserData();
         </div>
       </div>
     </div>
+
+    <!-- Reports & Analytics -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3 class="mb-4" data-aos="fade-up">Reports &amp; Analytics</h3>
+      </div>
+
+      <!-- High level stats table -->
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-bar-chart-line"></i> System Summary</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <tbody>
+                  <tr>
+                    <th scope="row">Total Books</th>
+                    <td><?php echo $stats['books']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Users</th>
+                    <td><?php echo $stats['users']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Authors</th>
+                    <td><?php echo $stats['authors']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Categories</th>
+                    <td><?php echo $stats['categories']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Borrow Records</th>
+                    <td><?php echo $stats['total_borrows']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Total Returns</th>
+                    <td><?php echo $stats['returns']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Unpaid Fines</th>
+                    <td><?php echo $stats['unpaid_fines']; ?></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pending Borrows</th>
+                    <td><?php echo $stats['pending_borrows']; ?></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Data -->
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+        <div class="card">
+          <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-download"></i> Export Data</h5>
+          </div>
+          <div class="card-body">
+            <p class="text-muted">Download CSV reports of key datasets for offline analysis or backup.</p>
+            <div class="row g-2">
+              <div class="col-md-6">
+                <a href="index.php?page=export&amp;type=books" class="btn btn-outline-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Books
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="index.php?page=export&amp;type=users" class="btn btn-outline-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Users
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="index.php?page=export&amp;type=borrows" class="btn btn-outline-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Borrow Records
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="index.php?page=export&amp;type=returns" class="btn btn-outline-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Returns
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="index.php?page=export&amp;type=fines" class="btn btn-outline-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Fines
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 

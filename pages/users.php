@@ -87,8 +87,8 @@ while ($row = $roles_result->fetch_assoc()) {
     $roles[] = $row;
 }
 
-// Get departments for dropdown
-$departments_result = $conn->query("SELECT * FROM department ORDER BY department_name");
+// Get departments for dropdown (using DISTINCT to avoid duplicates)
+$departments_result = $conn->query("SELECT DISTINCT department_id, department_name FROM department ORDER BY department_name");
 $departments = [];
 while ($row = $departments_result->fetch_assoc()) {
     $departments[] = $row;
@@ -145,7 +145,7 @@ while ($row = $departments_result->fetch_assoc()) {
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3" id="department_field" style="display: none;">
                                 <label for="department_id" class="form-label">Department</label>
                                 <select class="form-select" id="department_id" name="department_id">
                                     <option value="">Select Department</option>
@@ -250,7 +250,7 @@ while ($row = $departments_result->fetch_assoc()) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id="edit_department_field" style="display: none;">
                         <label for="edit_department_id" class="form-label">Department</label>
                         <select class="form-select" id="edit_department_id" name="department_id">
                             <option value="">Select Department</option>
@@ -270,6 +270,48 @@ while ($row = $departments_result->fetch_assoc()) {
 </div>
 
 <script>
+// Function to toggle department field visibility based on role
+function toggleDepartmentField(roleSelectId, departmentFieldId) {
+    const roleSelect = document.getElementById(roleSelectId);
+    const departmentField = document.getElementById(departmentFieldId);
+    
+    if (roleSelect && departmentField) {
+        const roleName = roleSelect.options[roleSelect.selectedIndex].text.toLowerCase();
+        const isStudentOrFaculty = roleName.includes('student') || roleName.includes('faculty');
+        
+        if (isStudentOrFaculty) {
+            departmentField.style.display = 'block';
+        } else {
+            departmentField.style.display = 'none';
+            // Clear department selection if role is not student/faculty
+            const deptSelect = departmentField.querySelector('select');
+            if (deptSelect) {
+                deptSelect.value = '';
+            }
+        }
+    }
+}
+
+// Add event listener for role selection in add form
+document.addEventListener('DOMContentLoaded', function() {
+    const roleSelect = document.getElementById('role_id');
+    const editRoleSelect = document.getElementById('edit_role_id');
+    
+    if (roleSelect) {
+        roleSelect.addEventListener('change', function() {
+            toggleDepartmentField('role_id', 'department_field');
+        });
+        // Check initial state
+        toggleDepartmentField('role_id', 'department_field');
+    }
+    
+    if (editRoleSelect) {
+        editRoleSelect.addEventListener('change', function() {
+            toggleDepartmentField('edit_role_id', 'edit_department_field');
+        });
+    }
+});
+
 function editUser(user) {
     document.getElementById('edit_user_id').value = user.user_id;
     document.getElementById('edit_first_name').value = user.first_name;
@@ -277,6 +319,11 @@ function editUser(user) {
     document.getElementById('edit_email').value = user.email;
     document.getElementById('edit_role_id').value = user.role_id || '';
     document.getElementById('edit_department_id').value = user.department_id || '';
+    
+    // Toggle department field based on role
+    setTimeout(function() {
+        toggleDepartmentField('edit_role_id', 'edit_department_field');
+    }, 100);
     
     var editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
     editModal.show();
