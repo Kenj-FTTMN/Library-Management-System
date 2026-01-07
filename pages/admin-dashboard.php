@@ -217,27 +217,27 @@ $user_data = getUserData();
             <p class="text-muted">Download CSV reports of key datasets for offline analysis or backup.</p>
             <div class="row g-2">
               <div class="col-md-6">
-                <a href="index.php?page=export&amp;type=books" class="btn btn-outline-success w-100">
+                <a href="pages/export.php?type=books" class="btn btn-outline-success w-100">
                   <i class="bi bi-file-earmark-spreadsheet"></i> Export Books
                 </a>
               </div>
               <div class="col-md-6">
-                <a href="index.php?page=export&amp;type=users" class="btn btn-outline-success w-100">
+                <a href="pages/export.php?type=users" class="btn btn-outline-success w-100">
                   <i class="bi bi-file-earmark-spreadsheet"></i> Export Users
                 </a>
               </div>
               <div class="col-md-6">
-                <a href="index.php?page=export&amp;type=borrows" class="btn btn-outline-success w-100">
+                <a href="pages/export.php?type=borrows" class="btn btn-outline-success w-100">
                   <i class="bi bi-file-earmark-spreadsheet"></i> Export Borrow Records
                 </a>
               </div>
               <div class="col-md-6">
-                <a href="index.php?page=export&amp;type=returns" class="btn btn-outline-success w-100">
+                <a href="pages/export.php?type=returns" class="btn btn-outline-success w-100">
                   <i class="bi bi-file-earmark-spreadsheet"></i> Export Returns
                 </a>
               </div>
               <div class="col-md-6">
-                <a href="index.php?page=export&amp;type=fines" class="btn btn-outline-success w-100">
+                <a href="pages/export.php?type=fines" class="btn btn-outline-success w-100">
                   <i class="bi bi-file-earmark-spreadsheet"></i> Export Fines
                 </a>
               </div>

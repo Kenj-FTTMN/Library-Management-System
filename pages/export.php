@@ -1,75 +1,102 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../config/auth.php';
+// ABSOLUTELY NO OUTPUT BEFORE THIS FILE
 
-// Allow only admin or librarian to export
-requireAdminOrLibrarian();
+// --- Include database and auth ---
+require_once 'C:/xampp/htdocs/Library-Management-System/config/database.php';
+require_once 'C:/xampp/htdocs/Library-Management-System/config/auth_core.php';
+
+// Only Admin & Librarian can export
+if (!canManage()) {
+    http_response_code(403);
+    exit('Unauthorized access. Only Admin or Librarian can export.');
+}
+
+// --- Get export type ---
+$type = $_GET['type'] ?? '';
 
 $conn = getDBConnection();
 
-$type = $_GET['type'] ?? '';
-$type = preg_replace('/[^a-z_]/', '', strtolower($type));
+// --- Define export configurations ---
+$exports = [
 
-if ($type === '') {
+    // Borrow Records
+    'borrows' => [
+        'filename' => 'borrow_records.csv',
+        'headers' => ['Borrow ID', 'User ID', 'Book ID', 'Borrow Date', 'Due Date', 'Status'],
+        'query' => "
+            SELECT borrow_id, user_id, book_id, borrow_date, due_date, status
+            FROM borrow_records
+            ORDER BY borrow_id
+        "
+    ],
+
+    // Users
+    'users' => [
+        'filename' => 'users.csv',
+        'headers' => ['User ID', 'First Name', 'Last Name', 'Email', 'Role'],
+        'query' => "
+            SELECT user_id, first_name, last_name, email, role
+            FROM users
+            ORDER BY user_id
+        "
+    ],
+
+    // Books
+    'books' => [
+        'filename' => 'books.csv',
+        'headers' => ['Book ID', 'Title', 'Author ID', 'Category', 'ISBN', 'Quantity', 'Created At'],
+        'query' => "
+            SELECT book_id, title, author_id, category_id, isbn, quantity, created_at
+            FROM books
+            ORDER BY book_id
+        "
+    ],
+
+    // Returns
+    'returns' => [
+        'filename' => 'returns.csv',
+        'headers' => ['Return ID', 'Borrow ID', 'Return Date', 'Book Condition'],
+        'query' => "
+            SELECT return_id, borrow_id, return_date, bookcondition
+            FROM returns
+            ORDER BY return_id
+        "
+    ],
+    // Fines
+    'fines' => [
+        'filename' => 'fines.csv',
+        'headers' => ['Fine ID', 'Borrow ID', 'Fine Amount',  'Paid Status'],
+        'query' => "
+            SELECT fine_id, borrow_id, fine_amount, status
+            FROM fines
+            ORDER BY fine_id
+        "
+    ],
+];
+
+// --- Validate export type ---
+if (!array_key_exists($type, $exports)) {
     http_response_code(400);
-    echo 'Missing export type.';
-    exit();
+    exit('Invalid export type.');
 }
 
-// Configure export based on type
-$filename = 'export_' . $type . '_' . date('Ymd_His') . '.csv';
-$headers = [];
-$sql = '';
-
-switch ($type) {
-    case 'books':
-        $headers = ['Book ID', 'Title', 'ISBN', 'Publication Year', 'Category ID', 'Author ID', 'Created At'];
-        $sql = "SELECT book_id, title, isbn, publication_year, category_id, author_id, created_at FROM books ORDER BY book_id";
-        break;
-    case 'users':
-        // Only admins can export users
-        if (!isAdmin()) {
-            http_response_code(403);
-            echo 'You do not have permission to export users.';
-            exit();
-        }
-        $headers = ['User ID', 'First Name', 'Last Name', 'Email', 'Role ID', 'Department ID', 'Created At'];
-        $sql = "SELECT user_id, first_name, last_name, email, role_id, department_id, created_at FROM users ORDER BY user_id";
-        break;
-    case 'borrows':
-        $headers = ['Borrow ID', 'User ID', 'Book ID', 'Borrow Date', 'Due Date', 'Status'];
-        $sql = "SELECT borrow_id, user_id, book_id, borrow_date, due_date, status FROM borrow_records ORDER BY borrow_id";
-        break;
-    case 'returns':
-        $headers = ['Return ID', 'Borrow ID', 'Return Date', 'Condition Notes'];
-        $sql = "SELECT return_id, borrow_id, return_date, condition_notes FROM returns ORDER BY return_id";
-        break;
-    case 'fines':
-        $headers = ['Fine ID', 'Borrow ID', 'Amount', 'Status', 'Created At'];
-        $sql = "SELECT fine_id, borrow_id, amount, status, created_at FROM fines ORDER BY fine_id";
-        break;
-    default:
-        http_response_code(400);
-        echo 'Invalid export type.';
-        exit();
-}
-
-$result = $conn->query($sql);
-
+// --- CSV headers (MUST COME FIRST) ---
 header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename="' . $filename . '"');
+header('Content-Disposition: attachment; filename=' . $exports[$type]['filename']);
 
 $output = fopen('php://output', 'w');
-fputcsv($output, $headers);
 
-if ($result && $result->num_rows > 0) {
+// Write CSV column headers
+fputcsv($output, $exports[$type]['headers']);
+
+// Execute query and write rows
+$result = $conn->query($exports[$type]['query']);
+
+if ($result) {
     while ($row = $result->fetch_assoc()) {
-        fputcsv($output, array_values($row));
+        fputcsv($output, $row);
     }
 }
 
 fclose($output);
-exit();
-
-
-
+exit;
