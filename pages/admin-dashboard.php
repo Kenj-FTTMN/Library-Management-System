@@ -214,33 +214,11 @@ $user_data = getUserData();
             <h5 class="mb-0"><i class="bi bi-download"></i> Export Data</h5>
           </div>
           <div class="card-body">
-            <p class="text-muted">Download CSV reports of key datasets for offline analysis or backup.</p>
-            <div class="row g-2">
-              <div class="col-md-6">
-                <a href="pages/export.php?type=books" class="btn btn-outline-success w-100">
-                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Books
-                </a>
-              </div>
-              <div class="col-md-6">
-                <a href="pages/export.php?type=users" class="btn btn-outline-success w-100">
-                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Users
-                </a>
-              </div>
-              <div class="col-md-6">
-                <a href="pages/export.php?type=borrows" class="btn btn-outline-success w-100">
-                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Borrow Records
-                </a>
-              </div>
-              <div class="col-md-6">
-                <a href="pages/export.php?type=returns" class="btn btn-outline-success w-100">
-                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Returns
-                </a>
-              </div>
-              <div class="col-md-6">
-                <a href="pages/export.php?type=fines" class="btn btn-outline-success w-100">
-                  <i class="bi bi-file-earmark-spreadsheet"></i> Export Fines
-                </a>
-              </div>
+            <p class="text-muted">Download all library data in a single Excel file with multiple sheets for offline analysis or backup.</p>
+            <div class="d-grid">
+              <a href="pages/export.php" class="btn btn-success btn-lg">
+                <i class="bi bi-file-earmark-spreadsheet"></i> Export All Data
+              </a>
             </div>
           </div>
         </div>

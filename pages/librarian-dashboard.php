@@ -326,20 +326,9 @@ $user_data = getUserData();
                 </a>
               </div>
               <div class="col-md-4">
-                <div class="d-grid gap-2">
-                  <a href="index.php?page=export&amp;type=books" class="btn btn-outline-light btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Books
-                  </a>
-                  <a href="index.php?page=export&amp;type=borrows" class="btn btn-outline-light btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Borrow Records
-                  </a>
-                  <a href="index.php?page=export&amp;type=returns" class="btn btn-outline-light btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Returns
-                  </a>
-                  <a href="index.php?page=export&amp;type=fines" class="btn btn-outline-light btn-sm">
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Fines
-                  </a>
-                </div>
+                <a href="pages/export.php" class="btn btn-success w-100">
+                  <i class="bi bi-file-earmark-spreadsheet"></i> Export All Data
+                </a>
               </div>
             </div>
           </div>
